@@ -6,5 +6,5 @@ const Section = styled.div`
   scroll-snap-align: center;
 `;
 export const Hello = () => {
-  return <Section>Hello</Section>;
+  return <Section>Hello :) </Section>;
 };
