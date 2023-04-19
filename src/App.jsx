@@ -1,38 +1,52 @@
 import styled from "styled-components";
 import { Contact } from "./components/Contact";
-import { Hello } from "./components/Hello";
 import { Who } from "./components/Who";
-import { Test } from "./components/Test";
+import { Navbar } from "./components/Navbar";
+import { AnimatePresence, motion } from "framer-motion";
+import { useState } from "react";
 
 const Container = styled.div`
-  height: 100vh;
   scroll-snap-type: y mandatory;
-  scroll-behavior: smooth;
-  overflow-y: auto;
+  height: 100vh;
+  overflow-y: scroll;
+  overflow-x: hidden;
   scrollbar-width: none;
   color: white;
   &::-webkit-scrollbar {
     display: none;
   }
-  background: #d502ab; /* fallback for old browsers */
+  background: #000000; /* fallback for old browsers */
   background: -webkit-linear-gradient(
-    to right,
-    #d502ab,
-    #333399
+    to left,
+    #2a2a2a,
+    #000000
   ); /* Chrome 10-25, Safari 5.1-6 */
   background: linear-gradient(
-    to right,
-    #d502ab,
-    #333399
+    to left,
+    #2a2a2a,
+    #000000
   ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 `;
 
 function App() {
+  const [isOpen, setIsOpen] = useState(false);
+
+  const variants = {
+    open: { opacity: 1.1 },
+    closed: { opacity: 0 },
+  };
+
   return (
     <Container>
-      <Hello />
-      <Who />
-      <Contact />
+      <Navbar setIsOpen={setIsOpen} isOpen={isOpen} />
+
+      <AnimatePresence>
+        <motion.span animate={isOpen ? "closed" : "open"} variants={variants}>
+          {" "}
+          <Who />
+          <Contact />
+        </motion.span>
+      </AnimatePresence>
     </Container>
   );
 }
